@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.hsbc.gbm.financeit.fotc</groupId>
+    <artifactId>fotc-mi-allocation_engine</artifactId>
+    <version>BFA.V1.0.2.9-SNAPSHOT</version>
+    <description>financeIT</description>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <junit.version>4.12</junit.version>
+        <log4j.version>2.17.0</log4j.version>
+        <jackson.version>2.8.8</jackson.version>
+        <commons-csv.version>1.7</commons-csv.version>
+        <commons-io.version>1.4</commons-io.version>
+        <spark.version>3.3.0</spark.version>
+        <jsonpath.version>2.4.0</jsonpath.version>
+<!--        <google-cloud-libraries-bom.version>7.0.0</google-cloud-libraries-bom.version>-->
+        <spark-bigquery_2.12.version>0.19.0</spark-bigquery_2.12.version>
+        <skipTests>true</skipTests>
+    </properties>
+
+<!--    <dependencyManagement>-->
+<!--        <dependencies>-->
+<!--            <dependency>-->
+<!--                <groupId>com.google.cloud</groupId>-->
+<!--                <artifactId>libraries-bom</artifactId>-->
+<!--                <version>S{google-cloud-libraries-bom.version}</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
+<!--        </dependencies>-->
+<!--    </dependencyManagement>-->
+
+
+    <dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.fasterxml.jackson.module</groupId>
+        <artifactId>jackson-module-scala_2.12</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-csv</artifactId>
+        <version>${commons-csv.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-core_2.12</artifactId>
+        <version>${spark.version}</version>
+        <exclusions>
+            <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-sql_2.12</artifactId>
+        <version>${spark.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.jayway.jsonpath</groupId>
+        <artifactId>json-path</artifactId>
+        <version>${jsonpath.version}</version>
+    </dependency>
+
+<!--    <dependency>-->
+<!--        <groupId>com.google.cloud.spark</groupId>-->
+<!--        <artifactId>spark-bigquery-with-dependencies_2.12</artifactId>-->
+<!--        <version>${spark-bigquery_2.12.version}</version>-->
+<!--    </dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.hsbc.mi.mialloc.AllocEngineBatchApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>prd</id>
+            <url>https://nexus306.systems.uk.hsbc:8081/nexus/content/repositories/maven-hsbc-internal-prd_n3p</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>https://nexus306.systems.uk.hsbc:8081/nexus/repository/repositories/maven-hsbc-snapshots_n3p</url>
+            <layout>default</layout>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>
